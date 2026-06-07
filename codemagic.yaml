@@ -12,6 +12,10 @@ workflows:
       - name: Build APK
         script: |
           cd ironforge_ai_github
-          flutter build apk --release
+          flutter build apk --release --verbose
+      - name: Copy APK
+        script: |
+          mkdir -p /tmp/artifacts
+          cp ironforge_ai_github/build/app/outputs/flutter-apk/app-release.apk /tmp/artifacts/IronForge-AI.apk
     artifacts:
-      - ironforge_ai_github/build/app/outputs/flutter-apk/app-release.apk
+      - /tmp/artifacts/IronForge-AI.apk
