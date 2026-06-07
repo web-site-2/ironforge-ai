@@ -6,8 +6,12 @@ workflows:
       flutter: stable
     scripts:
       - name: Get Flutter packages
-        script: flutter pub get
+        script: |
+          cd ironforge_ai_github
+          flutter pub get
       - name: Build APK
-        script: flutter build apk --release
+        script: |
+          cd ironforge_ai_github
+          flutter build apk --release
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
+      - ironforge_ai_github/build/app/outputs/flutter-apk/app-release.apk
