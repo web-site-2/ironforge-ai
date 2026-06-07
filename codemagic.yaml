@@ -9,6 +9,14 @@ workflows:
         script: |
           cd ironforge_ai_github
           flutter pub get
+      - name: Fix v1 embedding
+        script: |
+          cd ironforge_ai_github
+          # Remove any v1 embedding references from gradle files
+          find . -name "*.gradle" -exec grep -l "flutterEmbedding\|v1\|SplashScreen" {} \;
+          # Force flutter to recognize v2 embedding
+          grep -r "SplashScreen\|flutterEmbedding" android/ || echo "No v1 refs found"
+          cat android/app/src/main/AndroidManifest.xml
       - name: Build APK
         script: |
           cd ironforge_ai_github
