@@ -9,13 +9,15 @@ workflows:
         script: |
           cd ironforge_ai_github
           flutter pub get
-      - name: Fix Gradle wrapper
+      - name: Check plugins
         script: |
           cd ironforge_ai_github
-          # Update gradle wrapper to compatible version
-          sed -i 's/gradle-8.3-all/gradle-8.9-all/g' android/gradle/wrapper/gradle-wrapper.properties
-          cat android/gradle/wrapper/gradle-wrapper.properties
-          cat android/settings.gradle
+          echo "=== .flutter-plugins ==="
+          cat .flutter-plugins 2>/dev/null || echo "not found"
+          echo "=== .flutter-plugins-dependencies ==="
+          cat .flutter-plugins-dependencies 2>/dev/null | python3 -m json.tool 2>/dev/null | grep -A2 "embedding" || echo "no embedding refs"
+          echo "=== pubspec.lock flutter_local ==="
+          grep -A3 "hive\|youtube\|shared_pref\|go_router\|riverpod\|fl_chart" pubspec.lock | head -40
       - name: Build APK
         script: |
           cd ironforge_ai_github
