@@ -4,11 +4,14 @@ workflows:
     max_build_duration: 60
     environment:
       flutter: stable
-    working_directory: ironforge_ai
     scripts:
       - name: Get Flutter packages
-        script: flutter pub get
+        script: |
+          cd ironforge_ai
+          flutter pub get
       - name: Build APK
-        script: flutter build apk --release
+        script: |
+          cd ironforge_ai
+          flutter build apk --release
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
+      - ironforge_ai/build/app/outputs/flutter-apk/app-release.apk
