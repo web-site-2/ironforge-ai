@@ -1,0 +1,50 @@
+name: ironforge_ai
+description: IronForge AI - Premium Fitness Application
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  flutter_riverpod: ^2.4.9
+  
+  # Local Database
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  
+  # Navigation
+  go_router: ^13.2.0
+  
+  # UI & Charts
+  fl_chart: ^0.68.0
+  flutter_animate: ^4.5.0
+  shimmer: ^3.0.0
+  
+  # YouTube Player
+  youtube_player_flutter: ^8.1.2
+  
+  # Utilities
+  uuid: ^4.3.3
+  intl: ^0.18.1
+  shared_preferences: ^2.2.2
+  path_provider: ^2.1.2
+  
+  # Icons
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/icons/placeholder.png
+    - assets/images/placeholder.png
