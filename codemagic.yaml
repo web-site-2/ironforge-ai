@@ -12,6 +12,6 @@ workflows:
       - name: Build APK
         script: |
           cd ironforge_ai_github
-          flutter build apk --release
+          flutter build apk --release --verbose 2>&1 | tail -100
     artifacts:
       - ironforge_ai_github/build/app/outputs/flutter-apk/app-release.apk
