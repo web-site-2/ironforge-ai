@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../data/database/exercise_database.dart';
 import '../../../data/models/exercise_model.dart';
@@ -30,9 +30,10 @@ class _ExerciseDetailScreenState extends ConsumerState<ExerciseDetailScreen>
     _tabController = TabController(length: 4, vsync: this);
     final exercise = ExerciseDatabase.getById(widget.exerciseId);
     if (exercise?.youtubeVideoId != null) {
-      _ytController = YoutubePlayerController(
-        initialVideoId: exercise!.youtubeVideoId!,
-        flags: const YoutubePlayerFlags(autoPlay: false, mute: false),
+      _ytController = YoutubePlayerController.fromVideoId(
+        videoId: exercise!.youtubeVideoId!,
+        autoPlay: false,
+        params: const YoutubePlayerParams(mute: false),
       );
     }
   }
@@ -40,7 +41,7 @@ class _ExerciseDetailScreenState extends ConsumerState<ExerciseDetailScreen>
   @override
   void dispose() {
     _tabController.dispose();
-    _ytController?.dispose();
+    _ytController?.close();
     super.dispose();
   }
 
@@ -60,11 +61,7 @@ class _ExerciseDetailScreenState extends ConsumerState<ExerciseDetailScreen>
 
     Widget headerWidget = _ExerciseHeroImage(exercise: exercise);
     if (_ytController != null) {
-      headerWidget = YoutubePlayer(
-        controller: _ytController!,
-        showVideoProgressIndicator: true,
-        progressIndicatorColor: AppColors.primary,
-      );
+      headerWidget = YoutubePlayer(controller: _ytController!);
     }
 
     return Scaffold(
